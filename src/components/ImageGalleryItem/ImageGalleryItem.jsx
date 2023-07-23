@@ -8,4 +8,4 @@ function ImageGalleryItem({ id, webformatURL, onClick }) {
   );
 }
 
-export default ImageGalleryItem;
+export default ImageGalleryItem; 
