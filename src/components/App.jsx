@@ -15,7 +15,7 @@ const App = () => {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [perPage, setPerPage] = useState(12);
+  const [perPage] = useState(12);
 
   const [showModal, setShowModal] = useState(false);
   const [modalImage, setModalImage] = useState('');
@@ -55,7 +55,7 @@ const App = () => {
         })
         .finally(() => setLoading(false));
     }
-  }, [searchText, page, perPage]);
+  }, [searchText, page, perPage, error]);
 
   const loadMore = () => {
     if (page < totalPages) {
