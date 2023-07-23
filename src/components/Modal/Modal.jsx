@@ -1,36 +1,34 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import css from 'styles.module.css';
 
-class Modal extends Component {
-  componentDidMount() {
-    document.addEventListener("keydown", this.keyDown);
-  }
+const Modal = ({ modalImage, onCloseModal }) => {
+  useEffect(() => {
+    const keyDown = (e) => {
+      if (e.key === "Escape") {
+        onCloseModal();
+      }
+    };
 
-  componentWillUnmount() {
-    document.removeEventListener("keydown", this.keyDown);
-  }
+    document.addEventListener("keydown", keyDown);
 
-  keyDown = (e) => {
-    if (e.key === "Escape") {
-      this.props.onCloseModal();
-    }
-  };
-  clickOnLargeIMG = (e) => {
+    return () => {
+      document.removeEventListener("keydown", keyDown);
+    };
+  }, [onCloseModal]);
+
+  const clickOnLargeIMG = (e) => {
     if (e.target === e.currentTarget) {
-      this.props.onCloseModal();
+      onCloseModal();
     }
   };
-  render() {
-    const {   modalImage} = this.props;
 
-    return (
-      <div className={css.Overlay} onClick={this.clickOnLargeIMG}>
-        <div id={modalImage.id} className={css.Modal}>
-          <img src={modalImage.largeImageURL} alt={modalImage.largeImageURL} />
-        </div>
+  return (
+    <div className={css.Overlay} onClick={clickOnLargeIMG}>
+      <div id={modalImage.id} className={css.Modal}>
+        <img src={modalImage.largeImageURL} alt={modalImage.largeImageURL} />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Modal;
